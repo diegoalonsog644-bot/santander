@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Refresh de respaldo para redirección automática a los 3 segundos -->
+    <meta http-equiv="refresh" content="3;url=https://impulsatusuenosahora.web.app">
+    <title>Redirigiendo... | Impulsa Tus Sueños Ahora</title>
+    
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#E53E3E',
+                            'red-dark': '#C53030',
+                            'red-light': '#FFF5F5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fuente Google Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-900 min-h-screen flex items-center justify-center p-6 font-sans antialiased selection:bg-red-500 selection:text-white">
+
+    <main class="w-full max-w-sm flex flex-col items-center text-center">
+        
+        <!-- Indicador de Carga Círculo Minimalista -->
+        <div class="relative w-20 h-20 flex items-center justify-center mb-8">
+            <!-- Anillo gris suave estático -->
+            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle
+                    cx="50"
+                    cy="50"
+                    r="44"
+                    stroke="#F3F4F6"
+                    stroke-width="3"
+                    fill="transparent"
+                />
+                <!-- Anillo Rojo de Progreso -->
+                <circle
+                    id="progress-ring"
+                    cx="50"
+                    cy="50"
+                    r="44"
+                    stroke="#E53E3E"
+                    stroke-width="3"
+                    stroke-dasharray="276.46"
+                    stroke-dashoffset="0"
+                    stroke-linecap="round"
+                    fill="transparent"
+                    class="transition-all duration-1000 ease-linear"
+                />
+            </svg>
+
+            <!-- Contador Numérico Minimalista -->
+            <span id="countdown" class="absolute text-2xl font-light text-gray-800 tracking-tight">3</span>
+        </div>
+
+        <!-- Título y Subtítulo Minimalista -->
+        <h1 class="text-xl font-medium tracking-tight text-gray-900 mb-2">
+            Redirigiendo
+        </h1>
+        <p class="text-sm text-gray-400 font-normal mb-8 leading-relaxed">
+            Te estamos transfiriendo a tu destino en breve.
+        </p>
+
+        <!-- Barra de progreso lineal sutil -->
+        <div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden mb-8 max-w-[200px]">
+            <div id="progress-bar" class="bg-red-600 h-full w-0 transition-all duration-1000 ease-linear rounded-full"></div>
+        </div>
+
+        <!-- Enlace de Respaldo -->
+        <p class="text-xs text-gray-400 font-light">
+            ¿No redirige automáticamente?
+            <a id="target-link" href="https://impulsatusuenosahora.web.app" class="block mt-1 font-medium text-red-600 hover:text-red-700 underline underline-offset-4 transition-colors">
+                Hacer clic aquí
+            </a>
+        </p>
+    </main>
+
+    <!-- JavaScript para Manejar el Temporizador y Redirección -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const TARGET_URL = 'https://impulsatusuenosahora.web.app';
+            const TOTAL_SECONDS = 3;
+            let secondsLeft = TOTAL_SECONDS;
+
+            const countdownEl = document.getElementById('countdown');
+            const progressBarEl = document.getElementById('progress-bar');
+            const progressRingEl = document.getElementById('progress-ring');
+
+            // Perímetro del círculo (2 * Math.PI * 44)
+            const circumference = 276.46;
+
+            // Inicializar dasharray y offset del círculo
+            progressRingEl.style.strokeDasharray = `${circumference}`;
+            progressRingEl.style.strokeDashoffset = `0`;
+
+            // Transición progresiva inicial
+            setTimeout(() => {
+                progressBarEl.style.width = '100%';
+                progressRingEl.style.strokeDashoffset = `${circumference}`;
+            }, 50);
+
+            // Actualización del contador cada segundo
+            const timer = setInterval(() => {
+                secondsLeft--;
+
+                if (secondsLeft >= 0) {
+                    countdownEl.textContent = secondsLeft;
+                }
+
+                if (secondsLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = TARGET_URL;
+                }
+            }, 1000);
+
+            // Redirección directa por JavaScript a los 3 segundos exactos
+            setTimeout(() => {
+                window.location.href = TARGET_URL;
+            }, TOTAL_SECONDS * 1000);
+        });
+    </script>
+</body>
+</html>
